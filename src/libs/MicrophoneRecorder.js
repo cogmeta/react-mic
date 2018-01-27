@@ -20,7 +20,7 @@ navigator.getUserMedia = (navigator.getUserMedia ||
                           navigator.msGetUserMedia);
 
 export class MicrophoneRecorder {
-  constructor(onStart, onStop, options) {
+  constructor(onStart, onStop, onChunk, options) {
     onStartCallback= onStart;
     onStopCallback= onStop;
     onChunkCallback = onChunk;  
