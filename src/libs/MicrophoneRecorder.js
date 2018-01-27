@@ -10,6 +10,7 @@ let mediaOptions;
 let blobObject;
 let onStartCallback;
 let onStopCallback;
+let onChunkCallback;
 
 const constraints = { audio: true, video: false }; // constraints - only audio needed
 
@@ -22,6 +23,7 @@ export class MicrophoneRecorder {
   constructor(onStart, onStop, options) {
     onStartCallback= onStart;
     onStopCallback= onStop;
+    onChunkCallback = onChunk;  
     mediaOptions= options;
   }
 
@@ -64,6 +66,7 @@ export class MicrophoneRecorder {
           mediaRecorder.onstop = this.onStop;
           mediaRecorder.ondataavailable = (event) => {
             chunks.push(event.data);
+            if(onChunkCallback) { onChunkCallback(event.data, chunks) };
           }
 
           audioCtx = AudioContext.getAudioContext();
